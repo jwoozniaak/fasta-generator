@@ -28,13 +28,17 @@ def insert_name(sequence: str, name: str) -> str:
     name_lower = name.lower()
     return sequence[:pozycja] + name_lower + sequence[pozycja:]
 
-
 def format_fasta(seq_id: str, description: str,
                  sequence: str, line_width: int = 80) -> str:
     """Zwraca sformatowany rekord FASTA jako string."""
-    # TODO: zbuduj nagłówek zaczynający się od >
-    # TODO: podziel sekwencję na linie po line_width znaków
-    pass
+    if description:
+        header = f">{seq_id} {description}"
+    else:
+        header = f">{seq_id}"
+    linie = []
+    for i in range(0, len(sequence), line_width):
+        linie.append(sequence[i:i + line_width])
+    return header + "\n" + "\n".join(linie) + "\n"
 
 
 def validate_positive_int(prompt: str,
@@ -42,10 +46,16 @@ def validate_positive_int(prompt: str,
                           max_val: int = 100_000) -> int:
     """Pobiera od użytkownika liczbę całkowitą z przedziału [min_val, max_val].
     W przypadku błędu pyta ponownie."""
-    # TODO: użyj pętli while
-    # TODO: obsłuż błąd gdy użytkownik wpisze tekst zamiast liczby (try/except)
-    # TODO: sprawdź czy liczba jest w przedziale
-    pass
+    while True:
+        raw = input(prompt)
+        try:
+            wartosc = int(raw)
+            if min_val <= wartosc <= max_val:
+                return wartosc
+            else:
+                print(f"Błąd: wartość musi być w przedziale [{min_val}, {max_val}].")
+        except ValueError:
+            print(f"Błąd: wartość musi być w przedziale [{min_val}, {max_val}].")
 
 
 def main():
