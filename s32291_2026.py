@@ -1,6 +1,11 @@
 # Album number : s32291
-# Date         : 2026-05-12
-# Description  : Generator losowych sekwencji DNA w formacie FASTA
+# Date         : 12-05-2026
+# Description  : Generator losowych sekwencji nukleotydowych DNA w formacie FASTA.
+#                Program generuje sekwencje z nukleotydów {A, C, G, T},
+#                zapisuje je do pliku .fasta oraz oblicza statystyki.
+#                Dodatkowe funkcje: wyszukiwanie motywów, sekwencja komplementarna,
+#                transkrypcja mRNA, konfigurowalny rozkład nukleotydów.
+
 import random
 
 def generate_sequence(length: int) -> str:
