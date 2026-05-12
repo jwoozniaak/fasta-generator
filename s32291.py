@@ -1,30 +1,32 @@
 # Album number : s32291
 # Date         : 2026-05-12
 # Description  : Generator losowych sekwencji DNA w formacie FASTA
-
+import random
 
 def generate_sequence(length: int) -> str:
     """Zwraca losową sekwencję DNA o podanej długości."""
-    # TODO: wygeneruj sekwencję z nukleotydów A, C, G, T
-    pass
-
+    nukleotydy = ['A', 'C', 'G', 'T']
+    return ''.join(random.choices(nukleotydy, k=length))
 
 def calculate_stats(sequence: str) -> dict:
     """Zwraca słownik statystyk sekwencji.
-
-    Klucze: 'A', 'C', 'G', 'T' (float, %), 'gc_ratio_A' (float, %).
+    Klucze: 'A', 'C', 'G', 'T' (float, %), 'GC' (float, %).
     """
-    # TODO: policz ile razy każdy nukleotyd występuje w sekwencji
-    # TODO: oblicz procenty
-    # TODO: oblicz GC content
-    pass
-
+    n = len(sequence)
+    stats = {
+        'A': round(sequence.count('A') / n * 100, 2),
+        'C': round(sequence.count('C') / n * 100, 2),
+        'G': round(sequence.count('G') / n * 100, 2),
+        'T': round(sequence.count('T') / n * 100, 2),
+    }
+    stats['GC'] = round(stats['G'] + stats['C'], 2)
+    return stats
 
 def insert_name(sequence: str, name: str) -> str:
     """Wstawia imię w losowej pozycji sekwencji. Imię małymi literami."""
-    # TODO: wybierz losową pozycję
-    # TODO: wstaw imię (małe litery) w środek sekwencji
-    pass
+    pozycja = random.randint(0, len(sequence))
+    name_lower = name.lower()
+    return sequence[:pozycja] + name_lower + sequence[pozycja:]
 
 
 def format_fasta(seq_id: str, description: str,
