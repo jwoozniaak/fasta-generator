@@ -147,7 +147,7 @@ def main():
     print(f"  C: {stats['C']:.2f}%")
     print(f"  G: {stats['G']:.2f}%")
     print(f"  T: {stats['T']:.2f}%")
-    print(f"  GC: {stats['GC']:.2f}%")
+    print(f"  GC-content: {stats['GC']:.2f}%")
 
     sekwencja_z_imieniem = insert_name(sekwencja, name)
     fasta_tekst = format_fasta(seq_id, description, sekwencja_z_imieniem)
