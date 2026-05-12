@@ -60,14 +60,34 @@ def validate_positive_int(prompt: str,
 
 def main():
     """Główna funkcja programu."""
-    # TODO: pobierz dane od użytkownika
-    # TODO: wygeneruj sekwencję
-    # TODO: oblicz statystyki
-    # TODO: wstaw imię
-    # TODO: zapisz plik FASTA
-    # TODO: wyświetl statystyki
-    pass
+    length = validate_positive_int("Podaj długość sekwencji: ")
+    seq_id = input("Podaj identyfikator sekwencji: ").strip()
+    while not seq_id or any(c.isspace() for c in seq_id):
+        print("Błąd: identyfikator nie może być pusty ani zawierać spacji.")
+        seq_id = input("Podaj identyfikator sekwencji: ").strip()
+    description = input("Podaj opis sekwencji (opcjonalnie): ").strip()
+    name = input("Podaj swoje imię: ").strip()
+    while not name:
+        print("Błąd: imię nie może być puste.")
+        name = input("Podaj swoje imię: ").strip()
 
+    sekwencja = generate_sequence(length)
+
+    stats = calculate_stats(sekwencja)
+    print(f"\nStatystyki sekwencji (n={length}):")
+    print(f"  A: {stats['A']:.2f}%")
+    print(f"  C: {stats['C']:.2f}%")
+    print(f"  G: {stats['G']:.2f}%")
+    print(f"  T: {stats['T']:.2f}%")
+    print(f"  GC-content: {stats['GC']:.2f}%")
+
+    sekwencja_z_imieniem = insert_name(sekwencja, name)
+
+    fasta_tekst = format_fasta(seq_id, description, sekwencja_z_imieniem)
+    nazwa_pliku = f"{seq_id}.fasta"
+    with open(nazwa_pliku, "w") as f:
+        f.write(fasta_tekst)
+    print(f"\nSekwencja zapisana do pliku: {nazwa_pliku}")
 
 if __name__ == "__main__":
     main()
